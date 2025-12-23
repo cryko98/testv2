@@ -6,6 +6,7 @@ import XLogo from './components/XLogo';
 const App: React.FC = () => {
   const [copied, setCopied] = useState(false);
   const caAddress = "xxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+  const ticker = "$testv2";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(caAddress);
@@ -14,70 +15,69 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen w-full flex flex-col items-center justify-center text-white overflow-hidden">
+    <div className="relative min-h-screen w-full flex flex-col items-center justify-center text-white overflow-hidden bg-black">
       <StarBackground />
 
       {/* Decorative Glows */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/10 blur-[120px] rounded-full z-0"></div>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-purple-500/10 blur-[100px] rounded-full z-0"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] h-[70vw] max-w-[800px] max-h-[800px] bg-blue-600/10 blur-[150px] rounded-full z-0 pointer-events-none"></div>
 
       {/* Main Content */}
-      <main className="relative z-10 flex flex-col items-center text-center px-4">
-        {/* Site Name Header */}
-        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tighter mb-12 bg-gradient-to-b from-white to-gray-500 bg-clip-text text-transparent opacity-90">
-          testv2
-        </h1>
-
-        {/* Rotating Logo */}
-        <div className="relative group cursor-pointer mb-8">
-          <div className="absolute inset-0 bg-white/20 rounded-full blur-2xl group-hover:bg-white/30 transition-all duration-700"></div>
+      <main className="relative z-10 flex flex-col items-center text-center px-4 w-full flex-grow justify-center">
+        {/* Rotating Logo - Large size */}
+        <div className="relative flex justify-center items-center scale-110 md:scale-125 transition-transform duration-700">
           <img 
             src="https://wkkeyyrknmnynlcefugq.supabase.co/storage/v1/object/public/wasd/logo%20-%202025-12-23T055827.325.png" 
             alt="Space Logo" 
-            className="w-48 h-48 md:w-64 md:h-64 rounded-full shadow-2xl animate-slow-spin relative z-10 border border-white/10"
+            className="w-64 h-64 md:w-[480px] md:h-[480px] object-contain animate-slow-spin relative z-10 select-none pointer-events-none drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]"
           />
         </div>
+      </main>
 
-        {/* Contract Address Section */}
-        <div className="flex flex-col items-center gap-4 mb-10">
+      {/* Redesigned Footer with X Logo, Ticker, and CA */}
+      <footer className="relative z-20 w-full bg-black/40 backdrop-blur-md border-t border-white/5 py-6 px-6 md:px-12">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+          
+          {/* Ticker Section */}
+          <div className="flex items-center gap-4">
+            <span className="text-2xl md:text-3xl font-black tracking-tighter bg-gradient-to-r from-white to-gray-500 bg-clip-text text-transparent">
+              {ticker}
+            </span>
+          </div>
+
+          {/* CA Section */}
           <div 
             onClick={handleCopy}
-            className="flex items-center gap-3 bg-white/5 border border-white/10 px-6 py-3 rounded-full hover:bg-white/10 transition-all active:scale-95 cursor-pointer group"
+            className="group flex items-center gap-3 bg-white/5 border border-white/10 px-4 py-2 rounded-lg cursor-pointer hover:bg-white/10 transition-all"
           >
-            <span className="text-sm md:text-lg font-mono text-gray-400 group-hover:text-white transition-colors">
-              ca: <span className="text-white font-bold">{caAddress}</span>
+            <span className="text-[10px] md:text-xs font-mono text-gray-500 uppercase tracking-tight">Contract:</span>
+            <span className="text-xs md:text-sm font-mono text-gray-300 group-hover:text-white transition-colors">
+              {copied ? 'COPIED!' : caAddress}
             </span>
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
-              className={`h-5 w-5 transition-colors ${copied ? 'text-green-400' : 'text-gray-500 group-hover:text-white'}`} 
+              className={`h-4 w-4 ${copied ? 'text-green-400' : 'text-gray-500 group-hover:text-white'}`} 
               fill="none" 
               viewBox="0 0 24 24" 
               stroke="currentColor"
             >
-              {copied ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-              )}
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
             </svg>
           </div>
-          {copied && <span className="text-xs text-green-400 animate-pulse">Address copied to clipboard!</span>}
+
+          {/* Social Links Section */}
+          <div className="flex items-center gap-6">
+            <a 
+              href="https://x.com/i/communities/2003309357401084152" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group flex items-center justify-center w-10 h-10 bg-white text-black rounded-full hover:scale-110 hover:shadow-[0_0_15px_rgba(255,255,255,0.3)] transition-all duration-300 active:scale-95"
+              aria-label="X Community"
+            >
+              <XLogo className="w-5 h-5" />
+            </a>
+          </div>
+
         </div>
-
-        {/* Social Link */}
-        <a 
-          href="https://x.com/i/communities/2003309357401084152" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="group flex items-center justify-center w-14 h-14 bg-white text-black rounded-full hover:scale-110 hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-all duration-300"
-        >
-          <XLogo className="w-6 h-6" />
-        </a>
-      </main>
-
-      {/* Footer */}
-      <footer className="absolute bottom-8 z-10 text-white/20 text-xs tracking-widest uppercase">
-        Explore the digital void &copy; 2025 testv2
       </footer>
     </div>
   );
