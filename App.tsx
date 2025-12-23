@@ -5,7 +5,7 @@ import XLogo from './components/XLogo';
 
 const App: React.FC = () => {
   const [copied, setCopied] = useState(false);
-  const caAddress = "xxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+  const caAddress = "8egqa9EEuTRBE57vhLTrMz464nrW7ygsoqZPHMWpump";
   const ticker = "$testv2";
 
   const handleCopy = () => {
